@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import jsonFsService from '../shared-services/json.fs.service';
-import { articleDto } from '../../../dto/article.dto';
+import { ArticleDto } from '../../../dto/article.dto';
+import { randomUUID } from 'crypto';
 @Injectable()
 export class ArticlesService {
   async findAll() {
@@ -8,7 +9,8 @@ export class ArticlesService {
     return articles;
   }
   
-  async addArticle(article:articleDto) {
+  async addArticle(article:ArticleDto) {
+    article.id = randomUUID();
     const newArticle = await jsonFsService.addItem('articles.json', article);
     return newArticle;
   }

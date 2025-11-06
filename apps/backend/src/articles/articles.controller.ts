@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
-import { articleDto } from 'apps/dto/article.dto';
+import { ArticleDto } from 'apps/dto/article.dto';
 
 @Controller('articles')
 export class ArticlesController {
@@ -12,7 +12,7 @@ export class ArticlesController {
   }
 
   @Post()
-  addArticle(@Body() article: articleDto) {
+  addArticle(@Body() article: ArticleDto) {
     // Implementation for adding an article
     return this.articlesService.addArticle(article);
   }

@@ -1,14 +1,15 @@
-export interface articleDto {
-  id: number;
+export interface ArticleDto {
+  id: string;
   title: string;
   content: string;
   imageSource: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   comments: string[];
+  author: AuthorDto;
 }
-export interface CreateArticleDto {
-  title: string;
+export interface AuthorDto {
+  name: string;
   content: string;
   imageSource: string;
 }

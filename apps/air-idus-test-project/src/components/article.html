@@ -1,1 +1,9 @@
-<p>article works!</p>
+<article class="card">
+  <h3 class="category"><span>{{article.author?.name}}</span></h3>
+  <h2>{{article.title}}</h2>
+  <p>{{article.content}}</p>
+  <div class="user">
+    <span>{{article.author?.name}}</span>
+    <span class="date">{{article.createdAt | date}}</span>
+  </div>
+</article>

@@ -1,1 +1,7 @@
-<p>main works!</p>
+<div class="grid grid-col-3">
+  @for (article of articles; track $index) {
+  <div class="m-4">
+    <app-article [article]="article"></app-article>
+  </div>
+  }
+</div>
