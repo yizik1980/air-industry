@@ -1,21 +1,16 @@
-import { dirname } from "path";
+import {  join } from "path";
 import { readFile } from "fs/promises";
 import { writeFileSync } from "fs";
-import { fileURLToPath } from "url";
+
 
 const first_word_regex = /[^.]+/;
-const buildPath = (fileName) => {
-  const fileUrl = new URL(fileName, './');
-  const fileDirectory = fileURLToPath(fileUrl);
-  const __dirname = dirname(fileDirectory);
-  return `${__dirname}/${fileName}`;
-};
+const buildPath = (fileName: string) => join(__dirname, fileName);
 
 export async function readJson(fileName = "items.json", encoding = "utf8") {
   const nameList = fileName.match(first_word_regex)[0];
   try {
     const path = buildPath(fileName);
-    const fileContent = await readFile(path, { flag: "r", encoding:Buffer.isEncoding(encoding) ? encoding : "utf8" });
+    const fileContent = await readFile(path, { flag: "r", encoding: Buffer.isEncoding(encoding) ? encoding : "utf8" });
     return JSON.parse(fileContent.toString());
   } catch (err) {
     return { [nameList]: [] };
