@@ -4,10 +4,11 @@ import { Main } from '../components/main';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { ArticleDto } from 'apps/dto/article.dto';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { ArticleModel } from '../model/article.model';
 import { ApiService } from '../services/api.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
+import { ArticlesService } from '../services/articles.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,10 @@ import { Observable } from 'rxjs';
 })
 export class Home implements OnInit {
   private api = inject(ApiService);
+  private articlesService = inject(ArticlesService);
   public articels$: Observable<ArticleModel[]> = new Observable<ArticleModel[]>();
+  public filteredArticles$: Observable<ArticleModel[]> = new Observable<ArticleModel[]>();
+
   ngOnInit(): void {
     this.articels$ = this.api.get<{ articles: ArticleDto[] }>('articles')
       .pipe(map(({ articles }) => {
@@ -27,6 +31,20 @@ export class Home implements OnInit {
           updatedAt: article?.updatedAt ? new Date(article.updatedAt) : new Date()
         }));
       }));
+
+    const searchTerm$ = this.articlesService.getInputEmmiter().pipe(startWith(''));
+
+    this.filteredArticles$ = combineLatest([this.articels$, searchTerm$]).pipe(
+      map(([articles, term]) => {
+        if (!term) {
+          return articles;
+        }
+        return articles.filter((article) => {
+          const searchTarget = `${article.title} ${article.content} ${article.author?.name ?? ''}`.toLowerCase();
+          return searchTarget.includes(term);
+        });
+      })
+    );
   }
 
 }

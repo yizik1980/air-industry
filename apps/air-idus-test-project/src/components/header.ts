@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
+import { ArticlesService } from '../services/articles.service';
 
 @Component({
   selector: 'app-header',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+  constructor(public articleService:ArticlesService){}
+
+  public onSearch(value:string):void {
+    const query = value.trim().toLowerCase();
+    this.articleService.setInputEmmiter(query);
+  } 
+}
