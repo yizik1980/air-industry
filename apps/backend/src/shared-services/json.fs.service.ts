@@ -1,10 +1,11 @@
-import {  join } from "path";
+import { join } from "path";
 import { readFile } from "fs/promises";
 import { writeFileSync } from "fs";
 
 
 const first_word_regex = /[^.]+/;
-const buildPath = (fileName: string) => join(__dirname, fileName);
+const dataDirectory = join(process.cwd(), "apps", "backend", "src", "assets");
+const buildPath = (fileName: string) => join(dataDirectory, fileName);
 
 export async function readJson(fileName = "items.json", encoding = "utf8") {
   const nameList = fileName.match(first_word_regex)[0];
