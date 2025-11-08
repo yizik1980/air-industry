@@ -1,0 +1,81 @@
+<form
+  class="post-article-form"
+  [formGroup]="articleForm"
+  (ngSubmit)="handleSubmit()"
+>
+  <div class="field-group">
+    <label for="title">כותרת הפוסט</label>
+    <input id="title" type="text" formControlName="title" placeholder="Title" />
+    @if (articleForm.controls.title.invalid && articleForm.controls.title.touched) {
+      <small class="error">הכותרת חייבת להכיל לפחות 3 תוים</small>
+    }
+  </div>
+
+  <div class="field-group">
+    <label for="content">תוכן הפוסט</label>
+    <textarea
+      id="content"
+      rows="4"
+      formControlName="content"
+      placeholder="Write your article..."
+    ></textarea>
+    @if (articleForm.controls.content.invalid && articleForm.controls.content.touched) {
+      <small class="error">תוכן חייב להכיל 10 תוים לפחות</small>
+    }
+  </div>
+
+  <div class="field-group">
+    <label for="imageSource"></label>תמונה מאתר חיצוני
+    <input
+      id="imageSource"
+      type="url"
+      formControlName="imageSource"
+      placeholder="https://example.com/image.jpg"
+    />
+  </div>
+
+  <div class="grid">
+    <div class="field-group">
+      <label for="authorName">שם עורך הכתבה</label>
+      <input
+        id="authorName"
+        type="text"
+        formControlName="authorName"
+        placeholder="שם עורך הכתבה"
+      />
+      @if (articleForm.controls.authorName.invalid && articleForm.controls.authorName.touched) {
+        <small class="error">חסר שם העורך</small>
+      }
+    </div>
+
+    <div class="field-group">
+      <label for="authorImageSource">תמונת העורך</label>
+      <input
+        id="authorImageSource"
+        type="url"
+        formControlName="authorImageSource"
+        placeholder="/photo.jpg"
+      />
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="authorContent">ביוגרפיה של הכתב </label>
+    <textarea
+      id="authorContent"
+      rows="2"
+      formControlName="authorContent"
+      placeholder="ביוגרפיה קצרה של הכתב..."
+    ></textarea>
+  </div>
+
+  <button type="submit" [disabled]="submitting">
+    {{ submitting ? 'Publishing…' : 'Publish Article' }}
+  </button>
+
+  @if (submitStatus === 'success') {
+    <p class="status success">כתבה הועלת בהצלחה</p>
+  } @else if (submitStatus === 'error') {
+    <p class="status error">נסה שוב השמירה נכשלה</p>
+  }
+</form>
