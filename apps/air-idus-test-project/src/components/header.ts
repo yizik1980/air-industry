@@ -1,4 +1,4 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ArticlesService } from '../services/articles.service';
 
 @Component({
@@ -8,10 +8,16 @@ import { ArticlesService } from '../services/articles.service';
   styleUrl: './header.css',
 })
 export class Header {
-  constructor(public articleService:ArticlesService){}
+  @Output() createArticleRequested = new EventEmitter<void>();
 
-  public onSearch(value:string):void {
+  constructor(public articleService: ArticlesService) {}
+
+  public onSearch(value: string): void {
     const query = value.trim().toLowerCase();
     this.articleService.setInputEmmiter(query);
   } 
+
+  public onCreateArticle(): void {
+    this.createArticleRequested.emit();
+  }
 }

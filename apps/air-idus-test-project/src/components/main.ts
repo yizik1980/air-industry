@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ArticleModel } from '../model/article.model';
 import { Article } from './article';
 
@@ -9,13 +9,7 @@ import { Article } from './article';
   templateUrl: './main.html',
   styleUrl: './main.css',
 })
-export class Main implements OnInit {
+export class Main {
   @Input() 
   public articles: ArticleModel[] = [];
-  ngOnInit() {
-   
-  }
-
-
-
 }

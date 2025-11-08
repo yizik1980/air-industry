@@ -1,0 +1,40 @@
+.post-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.post-dialog {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #f9fafb;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.35);
+}
+
+.post-dialog-close {
+    position: absolute;
+    right: 36px;
+    cursor: pointer;
+    top: 36px;
+    padding: 6px 9px;
+    border-radius: 50%;
+}
+
+.post-dialog-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}

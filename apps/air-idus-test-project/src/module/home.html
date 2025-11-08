@@ -1,5 +1,17 @@
 <div class="w-container m-auto">
-  <app-header></app-header>
+  <app-header (createArticleRequested)="openPostArticleForm()"></app-header>
+
   <app-main [articles]="(filteredArticles$ | async) ?? []"></app-main>
+
   <app-footer></app-footer>
 </div>
+
+@if (isPostArticleFormOpen) {
+  <div class="post-dialog-backdrop" (click)="closePostArticleForm()">
+    <div class="post-dialog" (click)="$event.stopPropagation()">
+      <button class="post-dialog-close" type="button" (click)="closePostArticleForm()" aria-label="Close">X
+      </button>
+      <app-post-article-form></app-post-article-form>
+    </div>
+  </div>
+}

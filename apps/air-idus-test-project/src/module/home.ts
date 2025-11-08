@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Main } from '../components/main';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
+import { PostArticleForm } from '../components/post-article/post-article-form';
 import { ArticleDto } from 'apps/dto/article.dto';
 import { map, startWith } from 'rxjs/operators';
 import { ArticleModel } from '../model/article.model';
@@ -12,7 +13,7 @@ import { ArticlesService } from '../services/articles.service';
 
 @Component({
   selector: 'app-home',
-  imports: [Main, Header, Footer, AsyncPipe],
+  imports: [Main, Header, Footer, AsyncPipe, PostArticleForm],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -21,6 +22,7 @@ export class Home implements OnInit {
   private articlesService = inject(ArticlesService);
   public articels$: Observable<ArticleModel[]> = new Observable<ArticleModel[]>();
   public filteredArticles$: Observable<ArticleModel[]> = new Observable<ArticleModel[]>();
+  public isPostArticleFormOpen = false;
 
   ngOnInit(): void {
     this.articels$ = this.api.get<{ articles: ArticleDto[] }>('articles')
@@ -45,6 +47,18 @@ export class Home implements OnInit {
         });
       })
     );
+  }
+
+  openPostArticleForm(): void {
+    this.isPostArticleFormOpen = true;
+  }
+
+  closePostArticleForm(): void {
+    this.isPostArticleFormOpen = false;
+  }
+
+  togglePostArticleForm(): void {
+    this.isPostArticleFormOpen = !this.isPostArticleFormOpen;
   }
 
 }
